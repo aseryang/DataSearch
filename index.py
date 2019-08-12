@@ -83,8 +83,8 @@ def GetScore(DanWeiGuid):
         return qiyezizhi, Score, Score_old
     soup = BeautifulSoup(htmlText, 'lxml')
     try:
-        Score = soup.find('span', {'id': 'ctl00_ContentPlaceHolder1_CreditScore_1893'}).text
-        Score_old = soup.find('span', {'id': 'ctl00_ContentPlaceHolder1_CreditScoreOld_1893'}).text
+        Score = soup.find('span', {'id': 'ctl00_ContentPlaceHolder1_CreditScore'}).text
+        Score_old = soup.find('span', {'id': 'ctl00_ContentPlaceHolder1_CreditScoreOld'}).text
         table = soup.find('table', {'id': 'ctl00_ContentPlaceHolder1_Datagrid1'})
         if table is None:
             return qiyezizhi, Score, Score_old
