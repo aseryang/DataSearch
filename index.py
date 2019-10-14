@@ -29,8 +29,8 @@ def Search(company):
     :return:  返回公司唯一的 DanWeiGuid
     """
     logging.info('正在搜索 {0}'.format(company))
-    index_url = 'http://gcjy.njzwfw.gov.cn/njxxnew/qyxx/xmdjdw/alldw.aspx'
-    search_url = 'http://gcjy.njzwfw.gov.cn/njxxnew/qyxx/xmdjdw/alldw.aspx'
+    index_url = 'http://221.226.86.139/njxxnew/qyxx/xmdjdw/alldw.aspx'
+    search_url = 'http://221.226.86.139/njxxnew/qyxx/xmdjdw/alldw.aspx'
     result_html = Req_get(index_url)
     if result_html is None:
         raise Exception('获取搜索页面失败')
@@ -73,7 +73,7 @@ def GetScore(DanWeiGuid):
     :param DanWeiGuid:
     :return: 评分
     """
-    url = 'http://gcjy.njzwfw.gov.cn/HuiYuan/BackEnd/ShiGongInfo/ShiGongInfo_Detail.aspx?'
+    url = 'http://221.226.86.139/HuiYuan/BackEnd/ShiGongInfo/ShiGongInfo_Detail.aspx?'
     geturl = url + 'DanWeiGuid={0}&ViewType=2'.format(DanWeiGuid)
     logging.info('正在获取 企业资质、信用评分（新、旧）...')
 
@@ -105,7 +105,7 @@ def GetAchievementList(html):
     :param html:
     :return: 业绩字段详情
     """
-    ckurl_demo = 'http://gcjy.njzwfw.gov.cn/HuiYuan/BackEnd/ShiGongYeJi/'
+    ckurl_demo = 'http://221.226.86.139/HuiYuan/BackEnd/ShiGongYeJi/'
     soup = BeautifulSoup(html, 'lxml')
     table = soup.find('table', {'id': 'ctl00_ContentPlaceHolder1_Datagrid2'})
 
@@ -202,7 +202,7 @@ def GetYszmInfo(id, url):
     if html is None:
         logging.info('获取汇总图片信息html失败')
         return
-    begin_url = 'http://gcjy.njzwfw.gov.cn/HuiYuan/BackEnd'
+    begin_url = 'http://221.226.86.139/HuiYuan/BackEnd'
     end_rul = re.findall(r'OpenWindow\(\'..(.*?)\'', html)
     if len(end_rul) == 0:
         logging.info('未找到验收证明图片url')
@@ -238,7 +238,7 @@ def GetYszmInfo(id, url):
         return
     pic_request_url = find_pic_request_url['href']
     logging.info(pic_request_url)
-    url_real_base = 'http://gcjy.njzwfw.gov.cn/HuiYuan/BackEnd/ShiGongInfo/'
+    url_real_base = 'http://221.226.86.139/HuiYuan/BackEnd/ShiGongInfo/'
     total_url = url_real_base + pic_request_url
     logging.info('下载验收证明图片...')
     real = Req_get_v2(total_url)
@@ -285,7 +285,7 @@ def GetAchievement(DanWeiGuid, companyName):
     :return:
     """
     logging.info('正在获取 场内项目的业绩..')
-    url = 'http://gcjy.njzwfw.gov.cn/HuiYuan/BackEnd/ShiGongYeJi/ShiGongYeJi_List.aspx?'
+    url = 'http://221.226.86.139/HuiYuan/BackEnd/ShiGongYeJi/ShiGongYeJi_List.aspx?'
     geturl = url + 'ViewType=2&UnitType=5&DanWeiGuid={0}'.format(DanWeiGuid)
     html = Req_get(geturl)
     if html is None:
@@ -295,7 +295,7 @@ def GetAchievement(DanWeiGuid, companyName):
     logging.info('正在获取第 {0} 页场内项目的业绩信息'.format(1))
     GetAchievementList(html)
     data = GetAchievementNextData(html)
-    posturl = 'http://gcjy.njzwfw.gov.cn/HuiYuan/BackEnd/ShiGongYeJi/ShiGongYeJi_List.aspx?'
+    posturl = 'http://221.226.86.139/HuiYuan/BackEnd/ShiGongYeJi/ShiGongYeJi_List.aspx?'
     run_posturl = posturl + 'ViewType=2&UnitType=5&DanWeiGuid={0}'.format(DanWeiGuid)
     for p in range(2, int(allpage) + 1):
         # for p in xrange(2, 3):
@@ -359,7 +359,7 @@ def GetSelfAchievementList(html):
     :param html:
     :return: 业绩字段详情
     """
-    ckurl_demo = 'http://gcjy.njzwfw.gov.cn/HuiYuan/BackEnd/ShiGongYeJi/'
+    ckurl_demo = 'http://221.226.86.139/HuiYuan/BackEnd/ShiGongYeJi/'
     soup = BeautifulSoup(html, 'lxml')
     table = soup.find('table', {'id': 'ctl00_ContentPlaceHolder1_Datagrid1'})
     _tr = table.findAll('tr')[1:]
@@ -433,7 +433,7 @@ def GetSelfYszmInfo(id, url):
     if html is None:
         logging.info('获取自备汇总图片url')
         return
-    begin_url = 'http://gcjy.njzwfw.gov.cn/HuiYuan/BackEnd'
+    begin_url = 'http://221.226.86.139/HuiYuan/BackEnd'
     end_rul = re.findall(r'OpenWindow\(\'..(.*?)\'', html)
     if len(end_rul) == 0:
         logging.info('未找到验收证明图片url')
@@ -466,7 +466,7 @@ def GetSelfYszmInfo(id, url):
         return
     pic_request_url = find_pic_request_url['href']
     logging.info(pic_request_url)
-    url_real_base = 'http://gcjy.njzwfw.gov.cn/HuiYuan/BackEnd/ShiGongInfo/'
+    url_real_base = 'http://221.226.86.139/HuiYuan/BackEnd/ShiGongInfo/'
     total_url = url_real_base + pic_request_url
     logging.info('下载验收证明图片...')
     real = Req_get_v2(total_url)
@@ -518,7 +518,7 @@ def GetSelfAchievement(DanWeiGuid, companyName):
     :return:
     """
     logging.info('正在获取场 自行增加的业绩..')
-    url = 'http://gcjy.njzwfw.gov.cn/HuiYuan/BackEnd/ShiGongYeJi/ShiGongYeJi_List.aspx?'
+    url = 'http://221.226.86.139/HuiYuan/BackEnd/ShiGongYeJi/ShiGongYeJi_List.aspx?'
     geturl = url + 'ViewType=2&UnitType=5&DanWeiGuid={0}'.format(DanWeiGuid)
     html = Req_get(geturl)
     if html is None:
@@ -528,7 +528,7 @@ def GetSelfAchievement(DanWeiGuid, companyName):
     logging.info('正在获取第 {0} 页自行增加的业绩信息'.format(1))
     GetSelfAchievementList(html)
     data = GetSelfAchievementNextData(html)
-    posturl = 'http://gcjy.njzwfw.gov.cn/HuiYuan/BackEnd/ShiGongYeJi/ShiGongYeJi_List.aspx?'
+    posturl = 'http://221.226.86.139/HuiYuan/BackEnd/ShiGongYeJi/ShiGongYeJi_List.aspx?'
     run_posturl = posturl + 'ViewType=2&UnitType=5&DanWeiGuid={0}'.format(DanWeiGuid)
 
     for p in range(2, int(allpage) + 1):
@@ -622,7 +622,7 @@ def GetManager(DanWeiGuid):
     :return:
     """
     logging.info('正在获取经理列表..')
-    url = 'http://gcjy.njzwfw.gov.cn/HuiYuan/BackEnd/PMInfo/PM_List.aspx?'
+    url = 'http://221.226.86.139/HuiYuan/BackEnd/PMInfo/PM_List.aspx?'
     geturl = url + 'ViewType=2&UnitType=5&DanWeiGuid={0}'.format(DanWeiGuid)
     html = Req_get(geturl)
     if html is None:
@@ -635,7 +635,7 @@ def GetManager(DanWeiGuid):
     logging.info('正在获取第 {0} 页业绩信息'.format(1))
     GetManagerList(html)
     data = GetManagerNextData(html)
-    posturl = 'http://gcjy.njzwfw.gov.cn/HuiYuan/BackEnd/PMInfo/PM_List.aspx?'
+    posturl = 'http://221.226.86.139/HuiYuan/BackEnd/PMInfo/PM_List.aspx?'
     runpost_url = posturl + 'ViewType=2&UnitType=5&DanWeiGuid={0}'.format(DanWeiGuid)
 
     for p in range(2, int(allpage) + 1):
@@ -650,7 +650,7 @@ def GetManager(DanWeiGuid):
     logging.info('共计找到了 {0} 个经理'.format(len(ManagerList)))
 
     for name, info in ManagerList.items():
-        PMurl_demo = 'http://gcjy.njzwfw.gov.cn/HuiYuan/BackEnd/PMInfo/PM_Detail.aspx?'
+        PMurl_demo = 'http://221.226.86.139/HuiYuan/BackEnd/PMInfo/PM_Detail.aspx?'
         PM_runurl = PMurl_demo + 'ViewType=2&PMGuid={0}&DanWeiGuid={1}'.format(info[2], DanWeiGuid)
         logging.info('正在获取 {0} 的信息'.format(name))
         GetManagerInfo(name, PM_runurl)
